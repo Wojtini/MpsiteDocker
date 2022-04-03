@@ -1,3 +1,6 @@
 /code/media
 /postgres-data
 /code/.idea
+.idea/
+*.pyc
+*.pyo

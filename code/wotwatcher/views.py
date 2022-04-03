@@ -79,6 +79,11 @@ def list_menu(request):
 
 @login_required
 def update_request(request):
+    update_wn8()
+    return redirect('wotapi:list')
+
+
+def update_wn8():
     subs = TankRatingSubscription.objects.all()
     for sub in subs:
         try:
@@ -91,7 +96,7 @@ def update_request(request):
             sub.save()
         except TypeError:
             pass
-    return redirect('wotapi:list')
+
 
 def get_wn8(player, tank):
     try:
