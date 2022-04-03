@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <aside>
+            <img class="icon" src="{{profile.profile_picture.url}}">
+        <div class="profile_basic_content">
+            First Name: {{profile.user.first_name}}<br>
+            Last Name: {{profile.user.last_name}}<br>
+            Nickname: {{profile.user.username}} <br>
+            Birth date: {{profile.birth_date}}
+        </div>
+    </aside>
+    <div>
+        <h4>Description:</h4>
+        {{profile.description}}
+        <h4>Quotes:</h4>
+        {% for quote in quotes %}
+            <text class="quote">"{{quote.quote_text}}" - {{quote.user}}</text><br>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

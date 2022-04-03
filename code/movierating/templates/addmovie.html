@@ -1,0 +1,12 @@
+{% include "base.html" %}
+
+<h2>Add a movie to spreadsheet</h2>
+
+<li>Please check if a movie already exists in spreadsheet</li><br>
+<li>Try to use original name of a movie</li><br>
+
+
+<form method="POST"> {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit' value="Save" />
+</form>

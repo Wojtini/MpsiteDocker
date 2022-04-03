@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    personnel page<br>
+    <div class="container">
+    {% for user in all_users_blocks %}
+
+        <a href="/profile/{{user.username}}">
+            <div class="userblockinfo">
+                {{user.username}}
+                <img class="icon" src="{{user.profile.profile_picture.url}}">
+                <text>Reviews Count: {{user.reviews_count}}</text>
+                <text class="quote">"{{user.quote}}"</text>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+{% endblock %}

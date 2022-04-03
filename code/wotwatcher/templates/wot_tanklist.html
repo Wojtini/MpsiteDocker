@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" type="text/css"
+            href="{% static 'wot.css' %}">
+{% endblock %}
+
+{% block content %}
+<center>
+    <aside>
+    <a href="update"><button type="button">Update</button></a>
+    {% for key, value in subs.items %}
+        <button class="tablinks" onclick="openCity(event, '{{key}}')" id="button_{{key}}">{{key}}</button>
+    {% endfor %}
+    </aside>
+    {% for key, value in subs.items %}
+        <div id="{{key}}" class="tank_container">
+            {% for tank in value %}
+                <div class="tank_info">
+                    {{tank.tank}} WN8<br>
+                    <div class="wn8" style="background: {{tank.wn8color}};">{{tank.wn8}}</div>
+                    DMG per game: {{tank.avgDmg}} ({{tank.dif_Dmg}})<br>
+                    FRAG per game: {{tank.avgFrag}} ({{tank.dif_Frag}})<br>
+                    Winrate: {{tank.avgWinRate}} ({{tank.dif_expWinRate}})<br>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</center>
+
+<script type="text/javascript" src="{% static 'wot_collapsable.js' %}"></script>
+{% endblock %}

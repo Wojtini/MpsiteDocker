@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+    <h2>Add a review</h2>
+
+    <li>Rating range is from 0 to 100</li><br>
+
+    <h2>{{movie_name}}</h2>
+    <form method="POST"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' value="Save" />
+    </form>
+    <br>
+    <button><a href="/movierating">Cancel</a></button>
+</center>
+{% endblock %}

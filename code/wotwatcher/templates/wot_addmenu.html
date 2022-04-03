@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+    <form method="POST"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' value="Save" />
+    </form>
+    player_id = {{player_id}}
+    <br><br>
+    obj: {{exp_tank}}<br>
+    Name: {{exp_tank.tank_name}}<br>
+    Id: {{exp_tank.tank_id}}<br>
+    Def: {{exp_tank.exp_Def}} : {{real_tank.def_per_game}}<br>
+    Frag: {{exp_tank.exp_Frag}} : {{real_tank.frags_per_game}}<br>
+    Spot: {{exp_tank.exp_Spot}} : {{real_tank.spotted_per_game}}<br>
+    Damage: {{exp_tank.exp_Damage}} : {{real_tank.damage_per_game}}<br>
+    WinRate: {{exp_tank.exp_WinRate}} : {{real_tank.winrate}}<br>
+    Battles: {{real_tank.battles}}<br>
+
+    WN8: {{wn8}}
+</center>
+{% endblock %}
