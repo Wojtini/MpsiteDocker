@@ -1,0 +1,148 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+ul li {
+    float: left;
+}
+
+ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul li a:hover {
+    background-color: #111;
+}
+
+.nav-user-info {
+    float: right;
+}
+
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: black;
+}
+
+#main_content {
+
+    width: 75%;
+    margin: auto;
+    min-width: 1000px;
+}
+
+
+
+.container {
+  display: grid;
+  grid-template-columns: 300px 300px 300px;
+  grid-gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+    width: 200px;
+    height: 200px;
+    background: white;
+}
+
+.userblockinfo {
+    background: #222831;
+    height: 30rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+.container a {
+    text-decoration: none;
+}
+
+.quote {
+    font-style: italic;
+    margin-top: auto;
+    font-size: 12px;
+    padding: 10px;
+}
+
+
+
+
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 10;
+  background: #333;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    white-space: nowrap;
+    background-color: #DFDFDF;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    margin: 10px 70px 70px;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 14px;
+
+
+}
+
+.fl-table thead th {
+    background: #4FC3A1;
+    color: white;
+}
+
+
+.fl-table thead th:nth-child(odd) {
+    background: #324960;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #ABABAB;
+}
+
+#myInput {
+  width: 30%;
+  font-size: 20px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
