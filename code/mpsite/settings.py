@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u+be@bp((ii(a*tylyg7^*8hupf(63%u+v_33n!e6=2w@8o$7a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["localhost", "192.168.1.3", "milepogawedki.xyz"]
 
@@ -88,21 +88,12 @@ MEDIA_URL = '/media/'
 
 DATABASES = {
     'default': {
-	'ENGINE': 'django.db.backends.postgresql',
-	'NAME': os.environ.get('POSTGRES_NAME'),
-	'USER': os.environ.get('POSTGRES_USER'),
-	'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-	'HOST': 'db',
-	'PORT': 5432,
-#	'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'mariadb',
-#        'USER': 'mariadb',
-#        'PASSWORD': 'mariadb',
-#        'HOST': 'db',
-#        'PORT': '3366',
-#        'OPTIONS': {
-#            'sql_mode': 'traditional',
-#        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 

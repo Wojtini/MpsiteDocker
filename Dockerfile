@@ -8,3 +8,4 @@ RUN pip install --upgrade pip setuptools
 RUN pip install -r requirements.txt
 COPY . /code/
 EXPOSE 8000
+EXPOSE 5432

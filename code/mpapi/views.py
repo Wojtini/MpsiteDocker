@@ -22,28 +22,28 @@ class UserViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 class GroupViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
     queryset = Group.objects.all()
     serializer_class = GroupSerializer(queryset, many=True)
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 class TankExpectationViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
     queryset = TankExpectations.objects.all()
     serializer_class = TankExpectationSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 class TankRatingSubscriptionViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'post']
     queryset = TankRatingSubscription.objects.all()
     serializer_class = TankRatingSubscriptionSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     @action(detail=False)
     def update_wn8_stats(self, request):
