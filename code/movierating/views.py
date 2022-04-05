@@ -45,7 +45,7 @@ def index(request):
                   context={
                     'movies_list': all_movies,
                     'users_list': all_users,
-                    'rangetest': [1],
+                    'rangetest': [x * 0.4 for x in range(0, 250)],
                   })
 
 

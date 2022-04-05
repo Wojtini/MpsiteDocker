@@ -9,14 +9,19 @@
 
 .tank_container {
   margin-top: 10px;
-  display: none;
   grid-gap: 50px;
+  display: grid;
   grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
   justify-content: center;
   align-items: center;
 }
 
 .wn8 {
+    color: white;
+}
+
+h2 {
+  background-color: gray;
     color: white;
 }
 
@@ -30,10 +35,4 @@ button {
   text-align: center;
   outline: none;
   font-size: 18px;
-}
-
-aside{
-  margin-top: 10px;
-    float: left;
-    width: 20%;
 }

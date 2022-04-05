@@ -8,14 +8,13 @@
 
 {% block content %}
 <center>
-    <aside>
     <a href="update"><button type="button">Update</button></a>
+<!--    {% for key, value in subs.items %}-->
+<!--        <a href="#{{key}}"><button class="tablinks">{{key}}</button></a>-->
+<!--    {% endfor %}-->
     {% for key, value in subs.items %}
-        <button class="tablinks" onclick="openCity(event, '{{key}}')" id="button_{{key}}">{{key}}</button>
-    {% endfor %}
-    </aside>
-    {% for key, value in subs.items %}
-        <div id="{{key}}" class="tank_container">
+        <h2 id="{{key}}" >{{key}}</h2>
+        <div class="tank_container">
             {% for tank in value %}
                 <div class="tank_info">
                     {{tank.tank}} WN8<br>
@@ -29,5 +28,4 @@
     {% endfor %}
 </center>
 
-<script type="text/javascript" src="{% static 'wot_collapsable.js' %}"></script>
 {% endblock %}

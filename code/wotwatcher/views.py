@@ -3,7 +3,7 @@ from django.db.models.functions import datetime
 from django.shortcuts import render, redirect
 
 from .forms import WN8Form
-from .wotconnector.wotconnector import get_acc_id, get_vehicle_stats
+from .wotconnector.wotconnector import get_acc_id, get_vehicle_stats, get_vehicles_stats
 from .models import TankExpectations, TankRatingSubscription
 
 
@@ -33,9 +33,7 @@ def add_menu(request):
                 avgWinRate=vehstats['winrate'],
             )
         except KeyError and IndexError and TypeError as Ex:
-
             pass
-
 
     return render(request, "wot_addmenu.html",
                   context={
@@ -46,8 +44,6 @@ def add_menu(request):
                       'wn8': wn8,
                   })
 
-    # wn8 = calculate_wn8(65329, 2000, 1, 1, 1, 50)
-    # return render(request, "wot_addmenu.html", context={'wn8': wn8})
 
 # @login_required
 def list_menu(request):
@@ -84,26 +80,44 @@ def update_request(request):
 
 
 def update_wn8():
+    users = {}
     subs = TankRatingSubscription.objects.all()
     for sub in subs:
-        try:
-            wn8, data = get_wn8(sub.wot_username, sub.tank)
-            sub.wn8 = wn8
-            sub.lastUpdate = datetime.datetime.now()
-            sub.dmgPerGame = data['avgDmg']
-            sub.fragPerGame = data['avgFrag']
-            sub.winRate = data['avgWinRate']
-            sub.save()
-        except TypeError:
-            pass
+        if not sub.wot_username in users.keys():
+            users[sub.wot_username] = []
+        users[sub.wot_username].append(sub.tank)
+    for user, tanks_names in users.items():
+        data = get_wn8_list(user, tanks_names)
+        for tank, stats in data.items():
+            tank.wn8 = stats['wn8']
+            tank.lastUpdate = datetime.datetime.now()
+            tank.dmgPerGame = stats['avgDmg']
+            tank.fragPerGame = stats['avgFrag']
+            tank.winRate = stats['avgWinRate']
+            tank.save()
 
 
-def get_wn8(player, tank):
+def get_wn8_list(player, tanks_list):
     try:
-        id = get_acc_id(player)
+        result = {}
+        pid = get_acc_id(player)
+        tanks_dict_id_name = {}
+        for tank_name in tanks_list:
+            model = TankExpectations.objects.filter(tank_name=tank_name)[0]
+            tanks_dict_id_name[model.tank_id] = tank_name
+        stats = get_vehicles_stats(pid, tanks_dict_id_name.keys())
+        for tank_id, vehstats in stats.items():
+            tank_name = tanks_dict_id_name[tank_id]
+            result[tank_name] = get_wn8(tank_name, vehstats)
+        return result
+    except Exception as e:
+        print(e)
+        return -1
 
+
+def get_wn8(tank, vehstats):
+    try:
         model = TankExpectations.objects.filter(tank_name=tank)[0]
-        vehstats = get_vehicle_stats(user_id=id, tank_id=model.tank_id)
 
         wn8 = calculate_wn8(
             tankId=model.tank_id,
@@ -115,6 +129,7 @@ def get_wn8(player, tank):
         )
 
         data = {
+            'wn8': wn8,
             'avgDmg': vehstats['damage_per_game'],
             'avgFrag': vehstats['frags_per_game'],
             'avgWinRate': vehstats['winrate'],
@@ -125,7 +140,7 @@ def get_wn8(player, tank):
             'dif_Frag': round(vehstats['frags_per_game'] - model.exp_Frag, 2),
             'dif_expWinRate': round(vehstats['winrate'] - model.exp_WinRate, 2),
         }
-        return wn8, data
+        return data
     except Exception as e:
         print(e)
         return -1
