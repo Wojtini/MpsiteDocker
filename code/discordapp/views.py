@@ -8,12 +8,6 @@ import os
 @login_required
 def index(request):
     try:
-        r = requests.get(f'{os.environ.get("DSC_API_URL")}discord/guilds')
-    except requests.ConnectionError:
-        print('test')
-        return redirect('home:index')
-    data = r.json()
-    try:
         var = EnvironmentVariable.objects.filter(name="discordWOTCronChannel")[0]
     except IndexError:
         var = EnvironmentVariable()
@@ -21,6 +15,14 @@ def index(request):
         var.value = {'gid': None, 'tcid': None}
         var.save()
         var = EnvironmentVariable.objects.filter(name="discordWOTCronChannel")[0]
+
+    try:
+        r = requests.get(f'{os.environ.get("DSC_API_URL")}discord/guilds')
+    except requests.ConnectionError:
+        print('test')
+        return redirect('home:index')
+    data = r.json()
+
     if var.value['gid'] and var.value['tcid']:
         for guild in data:
             if int(guild['gid']) == int(var.value['gid']):

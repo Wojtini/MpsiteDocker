@@ -107,8 +107,9 @@ def get_wn8_list(player, tanks_list):
             tanks_dict_id_name[model.tank_id] = tank_name
         stats = get_vehicles_stats(pid, tanks_dict_id_name.keys())
         for tank_id, vehstats in stats.items():
-            tank_name = tanks_dict_id_name[tank_id]
-            result[tank_name] = get_wn8(tank_name, vehstats)
+            tank_expectation = tanks_dict_id_name[tank_id]
+            tank = TankRatingSubscription.objects.filter(tank=tank_expectation, wot_username=player)[0]
+            result[tank] = get_wn8(tank_expectation, vehstats)
         return result
     except Exception as e:
         print(e)
