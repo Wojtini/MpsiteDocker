@@ -12,6 +12,7 @@ from .models import TankExpectations, TankRatingSubscription
 
 @login_required
 def add_menu(request):
+    return_msg = ""
     form = WN8Form(request.POST or None)
     exp_tank = None
     wn8 = 0
@@ -19,29 +20,42 @@ def add_menu(request):
     id = None
     if form.is_valid():
         cd = form.cleaned_data
-        # print(cd.get('tank'))
         try:
             id = get_acc_id(cd.get('nick'))
-            exp_tank = TankExpectations.objects.filter(tank_name=cd.get('tank'))[0]
-            vehstats = get_vehicle_stats(user_id=id, tank_id=exp_tank.tank_id)
-            wn8 = calculate_wn8(
-                tankId=exp_tank.tank_id,
-                avgDmg=vehstats['damage_per_game'],
-                avgFrag=vehstats['frags_per_game'],
-                avgSpot=vehstats['spotted_per_game'],
-                avgDef=vehstats['def_per_game'],
-                avgWinRate=vehstats['winrate'],
-            )
+            tank = cd.get('tank')
+            exp_tank = TankExpectations.objects.filter(tank_name=tank)[0]
+            print(TankRatingSubscription.objects.filter(wot_username=cd.get('nick'), tank=exp_tank))
+            if len(TankRatingSubscription.objects.filter(wot_username=cd.get('nick'), tank=exp_tank)) == 0:
+                vehstats = get_vehicle_stats(user_id=id, tank_id=exp_tank.tank_id)
+                wn8 = calculate_wn8(
+                    tankId=exp_tank.tank_id,
+                    avgDmg=vehstats['damage_per_game'],
+                    avgFrag=vehstats['frags_per_game'],
+                    avgSpot=vehstats['spotted_per_game'],
+                    avgDef=vehstats['def_per_game'],
+                    avgWinRate=vehstats['winrate'],
+                )
+                new_sub = TankRatingSubscription()
+                new_sub.tank = exp_tank
+                new_sub.wn8 = wn8
+                new_sub.wot_username = cd.get('nick')
+                new_sub.winRate = vehstats['winrate']
+                new_sub.dmgPerGame = vehstats['damage_per_game']
+                new_sub.fragPerGame = vehstats['def_per_game']
+                new_sub.lastUpdate = datetime.datetime.now()
+                new_sub.user = request.user
+                new_sub.save()
+                return_msg = "Tank subscription added"
+            else:
+                return_msg = "Tank with that user is already added"
         except KeyError and IndexError and TypeError as Ex:
+            return_msg = "That user never played this tank"
             pass
 
     return render(request, "wot_addmenu.html",
                   context={
+                      'return_msg': return_msg,
                       'form': form,
-                      'exp_tank': exp_tank,
-                      'real_tank': vehstats,
-                      'player_id': id,
-                      'wn8': wn8,
                   })
 
 

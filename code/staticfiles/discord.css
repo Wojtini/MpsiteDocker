@@ -1,0 +1,30 @@
+h3 {
+  padding-top: 25px;
+  padding-left: 25px;
+}
+
+.discord_app {
+    background-color: #36393F;
+    color: #FFFFFF;
+}
+
+.discord_channel {
+  background-color: #2F3136;
+  display: block;
+  padding: 10px;
+  margin: 3px;
+  color: #8C989D;
+}
+
+.discord_channel_active {
+  background-color: #2F3136;
+  color: white;
+  display: block;
+  padding: 10px;
+  margin: 3px;
+}
+
+.text_channels {
+  display: inline-block;
+  font-size: 18px;
+}

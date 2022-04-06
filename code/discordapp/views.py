@@ -18,8 +18,8 @@ def index(request):
 
     try:
         r = requests.get(f'{os.environ.get("DSC_API_URL")}discord/guilds')
-    except requests.ConnectionError:
-        print('test')
+    except requests.ConnectionError as ex:
+        print(ex)
         return redirect('home:index')
     data = r.json()
 
