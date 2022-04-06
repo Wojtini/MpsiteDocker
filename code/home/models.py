@@ -35,6 +35,15 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
+class EnvironmentVariable(models.Model):
+    name = models.TextField(null=False, blank=False, primary_key=True)
+    value = models.JSONField()
+
+    def __str__(self):
+        return f"{self.name}"
+
 
 admin.site.register(Profile)
 admin.site.register(Quote)
+admin.site.register(EnvironmentVariable)
+

@@ -2,8 +2,8 @@ from django.urls import path
 
 from . import views
 
-app_name = 'moodtracker'
+app_name = "discordapp"
 urlpatterns = [
-    path('', views.index, name='main'),
+    path('', views.index, name='index'),
 ]
 

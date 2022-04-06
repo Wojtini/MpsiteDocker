@@ -28,6 +28,7 @@ router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'tankexpectations', views.TankExpectationViewSet)
 router.register(r'tankratings', views.TankRatingSubscriptionViewSet)
+router.register(r'environmentvariables', views.EnvironmentVariableViewSet)
 
 
 urlpatterns = [
@@ -35,7 +36,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('movierating/', include('movierating.urls')),
     path('wotapi/', include('wotwatcher.urls')),
-    path('mood/', include('MoodTracker.urls')),
+    path('discord/', include('discordapp.urls')),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

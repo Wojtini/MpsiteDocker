@@ -5,8 +5,7 @@
   <li><a href="{% url 'home:personnel' %}">Personnel</a></li>
   <li><a href="{% url 'movierating:list' %}">Movies Repo</a></li>
   <li><a href="{% url 'wotapi:list' %}">WN8 Tracker</a></li>
-<!--  <li><a href="{% url 'moodtracker:main' %}">Moods</a></li>-->
-
+  <li><a href="{% url 'discordapp:index' %}">Discord</a></li>
 
     {% if user.is_authenticated %}
         <div class="nav-user-info">

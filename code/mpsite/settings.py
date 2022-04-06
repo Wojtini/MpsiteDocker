@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u+be@bp((ii(a*tylyg7^*8hupf(63%u+v_33n!e6=2w@8o$7a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "192.168.1.3", "milepogawedki.xyz"]
+ALLOWED_HOSTS = ["localhost", "192.168.1.3", "milepogawedki.xyz", "172.20.0.2", "172.20.0.3"]
 
 
 LOGIN_URL = '/login'
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'movierating.apps.MovieratingConfig',
     'wotwatcher.apps.WotwatcherConfig',
+    'discordapp.apps.DiscordappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

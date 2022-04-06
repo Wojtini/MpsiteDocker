@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from wotwatcher.models import TankExpectations, TankRatingSubscription
+from home.models import EnvironmentVariable
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -25,3 +26,9 @@ class TankRatingSubscriptionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TankRatingSubscription
         fields = ['wot_username', 'tank', 'wn8', 'lastUpdate', 'dmgPerGame', 'fragPerGame', 'winRate']
+
+
+class EnvironmentVariableSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = EnvironmentVariable
+        fields = ['name', 'value']

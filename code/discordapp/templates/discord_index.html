@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'discord.css' %}">
+{% endblock %}
+
+{% block content %}
+<!--    {{perm}}-->
+    <div class="discord_app">
+        {% for guild in perm %}
+            <h3 id="{{guild.gid}}">{{guild.name}}</h3>
+            <div class="text_channels">
+                {% for text_channel in guild.text_channels %}
+                    {% if text_channel.active %}
+                        <div class="discord_channel_active"
+                             id="{{text_channel.tcid}}">
+                            # {{text_channel.name}} (active)
+                        </div>
+                    {% else %}
+                        <div class="discord_channel"
+                             id="{{text_channel.tcid}}">
+                            # {{text_channel.name}}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

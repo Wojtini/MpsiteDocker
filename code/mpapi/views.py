@@ -10,6 +10,8 @@ from wotwatcher.models import TankExpectations, TankRatingSubscription
 from mpapi.serializers import TankExpectationSerializer, TankRatingSubscriptionSerializer
 from rest_framework.response import Response
 from wotwatcher.views import update_wn8
+from home.models import EnvironmentVariable
+from mpapi.serializers import EnvironmentVariableSerializer
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -37,6 +39,18 @@ class TankExpectationViewSet(viewsets.ModelViewSet):
     queryset = TankExpectations.objects.all()
     serializer_class = TankExpectationSerializer
     # permission_classes = [permissions.IsAuthenticated]
+
+
+class EnvironmentVariableViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
+    queryset = EnvironmentVariable.objects.all()
+    serializer_class = EnvironmentVariableSerializer
+
+    def get_queryset(self):
+        name = self.request.query_params.get('name')
+        result = self.queryset.filter(name=name)
+
+        return result
 
 
 class TankRatingSubscriptionViewSet(viewsets.ModelViewSet):
