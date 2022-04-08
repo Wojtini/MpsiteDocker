@@ -16,6 +16,7 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user} Profile"
 
+
 class Quote(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     quote_text = models.TextField()

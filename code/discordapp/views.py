@@ -1,8 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 import requests
 from home.models import EnvironmentVariable
 import os
+from discordapp.models import Playlist, PlaylistOwnership
+from django.contrib.auth.models import User
+from discordapp.models import Song
 
 
 @login_required
@@ -35,3 +39,25 @@ def index(request):
                   context={
                       'perm': data,
                   })
+
+
+@login_required
+def playlist_list(request):
+    playlists = Playlist.objects.all().values()
+    owned_playlists = Playlist.objects.filter(playlistownership__user=request.user).values()
+    for playlist in playlists:
+        playlist['can_manage'] = playlist in owned_playlists
+        songs = Song.objects.filter(playlist=playlist['name']).values()
+        playlist['songs'] = songs
+
+    return render(request, "playlist_list.html",
+                  context={
+                      'playlists': playlists,
+                  })
+
+
+@login_required
+def play_playlist(request, playlist_name):
+    songs = Song.objects.filter(playlist=playlist_name).values()
+    print(songs)
+    return redirect('discordapp:playlist_list')

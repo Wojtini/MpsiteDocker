@@ -29,6 +29,9 @@ router.register(r'groups', views.GroupViewSet)
 router.register(r'tankexpectations', views.TankExpectationViewSet)
 router.register(r'tankratings', views.TankRatingSubscriptionViewSet)
 router.register(r'environmentvariables', views.EnvironmentVariableViewSet)
+router.register(r'playlist_ownership', views.PlaylistOwnershipViewSet)
+router.register(r'playlist', views.PlaylistViewSet)
+router.register(r'song', views.SongViewSet)
 
 
 urlpatterns = [
