@@ -8,3 +8,5 @@ Repository of movies, each user with permissions can add movies and reviews
 Basically users' profiles
 ### Api
 Api (mostly for discord bot) to retrieve data from website
+### Manager for Discord Music Bot located here
+https://github.com/Wojtini/MpsiteDiscordBot
