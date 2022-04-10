@@ -6,23 +6,45 @@
           href="{% static 'discord.css' %}">
     <link rel="stylesheet" type="text/css"
           href="{% static 'playlist_list.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'music_player.css' %}">
 {% endblock %}
 
 {% block content %}
+    <div class="music_player">
+        <button class="disabled_button">Previous</button>
+        <button class="disabled_button">Pause/Resume</button>
+        <a href="skip"><button class="normal_button">Next</button></a>
+        <button class="disabled_button">Shuffle</button>
+        <a href="stop"><button class="normal_button">Stop</button></a>
+        <button class="disabled_button">Add to priority queue</button>
+        <button class="disabled_button">Set next song</button>
+    </div>
+
+    
+
     <aside>
         <div class="playlist_list">
             {% for playlist in playlists %}
         <!--        {{playlist}}-->
                 <div class="playlist_entry">
                     {{playlist.name}}
-                    <a href="play/{{playlist.name}}"><button>Play</button></a>
-                    <a href=""></a><button onclick="toggleDisplay('{{playlist.name}}')">View playlist</button>
+                    <a href="play/{{playlist.name}}"><button class="normal_button">Play</button></a>
+                    <a href=""></a><button onclick="toggleDisplay('{{playlist.name}}')" class="normal_button">View playlist</button>
                 </div>
             {% endfor %}
         </div>
     </aside>
+
+    <form method="POST"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' value="Save" />
+    </form>
     {% for playlist in playlists %}
         <div class="songs_list" id="{{playlist.name}}" style="display: none;">
+            {% if playlist.can_manage %}
+            <button class="disabled_button">Add music</button>
+            {% endif %}
             <table>
                 <tr>
                     <th><b>Songs</b></th>
@@ -31,13 +53,13 @@
                 <tr>
                     <th>
                         <a href="{{song.url}}">{{song.name}}</a>
-                        <a>Delete</a>
+                        <a><button class="disabled_button">Delete from playlist</button></a>
                     </th>
                 </tr>
                 {% endfor %}
             </table>
             {% if playlist.can_manage %}
-            <button>Add music</button>
+            <button class="disabled_button">Add music</button>
             {% endif %}
         </div>
     {% endfor %}

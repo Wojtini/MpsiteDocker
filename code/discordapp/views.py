@@ -2,11 +2,15 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 import requests
+
+from discordapp.forms import AddSongForm
 from home.models import EnvironmentVariable
 import os
 from discordapp.models import Playlist, PlaylistOwnership
 from django.contrib.auth.models import User
 from discordapp.models import Song
+import json
+from discordapp.bot_connector import bot_play_playlist, bot_skip, bot_stop
 
 
 @login_required
@@ -43,6 +47,16 @@ def index(request):
 
 @login_required
 def playlist_list(request):
+
+    form = AddSongForm(request.POST or None)
+    if form.is_valid():
+        cd = form.cleaned_data
+        new_song = Song()
+        new_song.name = cd.get('name')
+        new_song.playlist = cd.get('playlist')
+        new_song.url = cd.get('url')
+        new_song.save()
+
     playlists = Playlist.objects.all().values()
     owned_playlists = Playlist.objects.filter(playlistownership__user=request.user).values()
     for playlist in playlists:
@@ -53,11 +67,35 @@ def playlist_list(request):
     return render(request, "playlist_list.html",
                   context={
                       'playlists': playlists,
+                      'form': form,
                   })
 
 
 @login_required
-def play_playlist(request, playlist_name):
-    songs = Song.objects.filter(playlist=playlist_name).values()
-    print(songs)
+def play_playlist_view(request, playlist_name):
+    bot_play_playlist(playlist_name)
     return redirect('discordapp:playlist_list')
+
+
+@login_required
+def skip_music_view(request):
+    bot_skip()
+    return redirect('discordapp:playlist_list')
+
+
+@login_required
+def stop_playlist_view(request):
+    bot_stop()
+    return redirect('discordapp:playlist_list')
+
+
+@login_required
+def add_song(request):
+    form = AddSongForm(request.POST or None)
+    if form.is_valid():
+        cd = form.cleaned_data
+        new_song = Song()
+        new_song.name = cd.get('name')
+        new_song.playlist = cd.get('playlist')
+        new_song.url = cd.get('url')
+        new_song.save()
