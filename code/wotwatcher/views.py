@@ -24,7 +24,6 @@ def add_menu(request):
             id = get_acc_id(cd.get('nick'))
             tank = cd.get('tank')
             exp_tank = TankExpectations.objects.filter(tank_name=tank)[0]
-            print(TankRatingSubscription.objects.filter(wot_username=cd.get('nick'), tank=exp_tank))
             if len(TankRatingSubscription.objects.filter(wot_username=cd.get('nick'), tank=exp_tank)) == 0:
                 vehstats = get_vehicle_stats(user_id=id, tank_id=exp_tank.tank_id)
                 wn8 = calculate_wn8(

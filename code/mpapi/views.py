@@ -12,6 +12,8 @@ from rest_framework.response import Response
 from wotwatcher.views import update_wn8
 from home.models import EnvironmentVariable
 from mpapi.serializers import EnvironmentVariableSerializer
+from discordapp.models import Playlist, PlaylistOwnership, Song
+from mpapi.serializers import PlaylistSerializer, PlaylistOwnershipSerializer, SongSerializer
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -30,7 +32,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
     queryset = Group.objects.all()
-    serializer_class = GroupSerializer(queryset, many=True)
+    serializer_class = GroupSerializer
     # permission_classes = [permissions.IsAuthenticated]
 
 
@@ -41,6 +43,24 @@ class TankExpectationViewSet(viewsets.ModelViewSet):
     # permission_classes = [permissions.IsAuthenticated]
 
 
+class PlaylistViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
+    queryset = Playlist.objects.all()
+    serializer_class = PlaylistSerializer
+
+
+class PlaylistOwnershipViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
+    queryset = PlaylistOwnership.objects.all()
+    serializer_class = PlaylistOwnershipSerializer
+
+
+class SongViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
+    queryset = Song.objects.all()
+    serializer_class = SongSerializer
+
+
 class EnvironmentVariableViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
     queryset = EnvironmentVariable.objects.all()
@@ -48,8 +68,9 @@ class EnvironmentVariableViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         name = self.request.query_params.get('name')
+        if name is None:
+            return self.queryset
         result = self.queryset.filter(name=name)
-
         return result
 
 

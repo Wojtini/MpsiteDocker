@@ -83,6 +83,7 @@ def personnel(request):
                       "all_users_blocks": all_users,
                   })
 
+
 def register_request(request):
     msg = ''
     if request.method == "POST":

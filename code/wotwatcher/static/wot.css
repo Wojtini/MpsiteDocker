@@ -25,4 +25,16 @@ h2 {
     color: white;
 }
 
+.examples {
+  display: flex;
+  margin: auto;
+}
+
+.example {
+  min-width: 150px;
+  text-align: center;
+  padding: 10px;
+  color: white;
+  font-size: 20px;
+}
 
