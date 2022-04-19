@@ -26,6 +26,8 @@ class TankRatingSubscription(models.Model):
     dmgPerGame = models.IntegerField(null=False, default=0)
     fragPerGame = models.FloatField(null=False, default=0)
     winRate = models.FloatField(null=False, default=0)
+    spotPerGame = models.FloatField(null=False, default=0)
+    defPerGame = models.FloatField(null=False, default=0)
 
     def __str__(self):
         return f"{self.user} watching {self.wot_username} on {self.tank.tank_name}"

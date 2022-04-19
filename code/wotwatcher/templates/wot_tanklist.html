@@ -4,6 +4,7 @@
 {% block extrahead %}
     <link rel="stylesheet" type="text/css"
             href="{% static 'wot.css' %}">
+
 {% endblock %}
 
 {% block content %}
@@ -23,6 +24,20 @@
 <!--    {% for key, value in subs.items %}-->
 <!--        <a href="#{{key}}"><button class="tablinks">{{key}}</button></a>-->
 <!--    {% endfor %}-->
+<!--    <div>-->
+<!--        <div id="result_wn8">200</div>-->
+<!--        <label for="dmg">Damage:</label>-->
+<!--        <input type="number" id="dmg"><br>-->
+<!--        <label for="frag">Frags:</label>-->
+<!--        <input type="number" id="frag"><br>-->
+<!--        <label for="wr">Win Rate:</label>-->
+<!--        <input type="number" id="wr"><br>-->
+<!--        <label for="spot">Spotted tanks:</label>-->
+<!--        <input type="number" id="spot"><br>-->
+<!--        <label for="def">Cap drop:</label>-->
+<!--        <input type="number" id="def"><br>-->
+<!--    </div>-->
+<!--    <script type="text/javascript" src="{% static 'wn8.js' %}"></script>-->
     {% for key, value in subs.items %}
         <h2 id="{{key}}" >{{key}}</h2>
         <div class="tank_container">
@@ -33,6 +48,8 @@
                     DMG per game: {{tank.avgDmg}} ({{tank.dif_Dmg}})<br>
                     FRAG per game: {{tank.avgFrag}} ({{tank.dif_Frag}})<br>
                     Winrate: {{tank.avgWinRate}} ({{tank.dif_expWinRate}})<br>
+                    Spot: {{tank.avgSpot}} ({{tank.dif_expSpot}})<br>
+                    Def: {{tank.avgDef}} ({{tank.dif_expDef}})<br>
                 </div>
             {% endfor %}
         </div>

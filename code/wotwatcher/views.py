@@ -75,9 +75,13 @@ def list_menu(request):
                 "avgDmg": sub.dmgPerGame,
                 "avgFrag": sub.fragPerGame,
                 "avgWinRate": sub.winRate,
+                "avgSpot": sub.spotPerGame,
+                "avgDef": sub.defPerGame,
                 'dif_Dmg': round(sub.dmgPerGame - exp_tank.exp_Damage, 2),
                 'dif_Frag': round(sub.fragPerGame - exp_tank.exp_Frag, 2),
                 'dif_expWinRate': round(sub.winRate - exp_tank.exp_WinRate, 2),
+                'dif_expDef': round(sub.defPerGame - exp_tank.exp_Def, 2),
+                'dif_expSpot': round(sub.spotPerGame - exp_tank.exp_Spot, 2),
             }
             result[sub.wot_username].append(dict)
         except TypeError:
@@ -107,6 +111,8 @@ def update_wn8():
             tank.dmgPerGame = stats['avgDmg']
             tank.fragPerGame = stats['avgFrag']
             tank.winRate = stats['avgWinRate']
+            tank.spotPerGame = stats['avgSpot']
+            tank.defPerGame = stats['avgDef']
             tank.save()
 
 
@@ -147,9 +153,8 @@ def get_wn8(tank, vehstats):
             'avgDmg': vehstats['damage_per_game'],
             'avgFrag': vehstats['frags_per_game'],
             'avgWinRate': vehstats['winrate'],
-            # 'expDmg': model.exp_Damage,
-            # 'expFrag': model.exp_Damage,
-            # 'expWinRate': model.exp_Damage,
+            'avgSpot': vehstats['spotted_per_game'],
+            'avgDef': vehstats['def_per_game'],
             'dif_Dmg': round(vehstats['damage_per_game'] - model.exp_Damage, 2),
             'dif_Frag': round(vehstats['frags_per_game'] - model.exp_Frag, 2),
             'dif_expWinRate': round(vehstats['winrate'] - model.exp_WinRate, 2),
