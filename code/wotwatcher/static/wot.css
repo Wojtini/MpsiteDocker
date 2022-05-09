@@ -27,11 +27,10 @@ h2 {
 
 .examples {
   display: flex;
-  margin: auto;
 }
 
 .example {
-  min-width: 150px;
+  flex: 1 0 auto;
   text-align: center;
   padding: 10px;
   color: white;

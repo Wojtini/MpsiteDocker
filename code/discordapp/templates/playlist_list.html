@@ -6,45 +6,47 @@
           href="{% static 'discord.css' %}">
     <link rel="stylesheet" type="text/css"
           href="{% static 'playlist_list.css' %}">
-    <link rel="stylesheet" type="text/css"
-          href="{% static 'music_player.css' %}">
 {% endblock %}
 
+{% block navbar %}
+<!--    <span style="font-size:30px;cursor:pointer" onclick="openPlaylistNav()">&#9776; PLAYLISTS</span>-->
+{% endblock %}
+{% block beforecontent %}
+    <div id="playlistSidebar" class="sideplaylist">
+            <li onclick="closePlaylistNav()"><a >Available playlists:</a></li>
+            {% for playlist in playlists %}
+                    <li>
+                        {% if playlist.can_manage %}
+                            <a><button class="disabled_button">&#9881;</button></a>
+                        {% endif %}
+                        <a href="play/{{playlist.name}}"><button class="normal_button">&#9658;</button></a>
+                        <a onclick="toggleDisplay('{{playlist.name}}')">{{playlist.name}}</a>
+                    </li>
+            {% endfor %}
+    </div>
+{% endblock %}
 {% block content %}
+    <br>
+<!--    <h4 id="playlist_name">Current playlist:</h4>-->
     <div class="music_player">
-        <button class="disabled_button">Previous</button>
-        <button class="disabled_button">Pause/Resume</button>
-        <a href="skip"><button class="normal_button">Next</button></a>
+        <button class="disabled_button">◄◄</button>
+        <button class="disabled_button">▐▐</button>
+        <a href="skip"><button class="normal_button">►►</button></a>
         <button class="disabled_button">Shuffle</button>
         <a href="stop"><button class="normal_button">Stop</button></a>
         <button class="disabled_button">Add to priority queue</button>
         <button class="disabled_button">Set next song</button>
     </div>
 
-    
 
-    <aside>
-        <div class="playlist_list">
-            {% for playlist in playlists %}
-        <!--        {{playlist}}-->
-                <div class="playlist_entry">
-                    {{playlist.name}}
-                    <a href="play/{{playlist.name}}"><button class="normal_button">Play</button></a>
-                    <a href=""></a><button onclick="toggleDisplay('{{playlist.name}}')" class="normal_button">View playlist</button>
-                </div>
-            {% endfor %}
-        </div>
-    </aside>
-
+    <h4>Temporary adding menu</h4>
     <form method="POST"> {% csrf_token %}
         {{ form.as_p }}
         <input type='submit' value="Save" />
     </form>
+
     {% for playlist in playlists %}
         <div class="songs_list" id="{{playlist.name}}" style="display: none;">
-            {% if playlist.can_manage %}
-            <button class="disabled_button">Add music</button>
-            {% endif %}
             <table>
                 <tr>
                     <th><b>Songs</b></th>
@@ -53,14 +55,12 @@
                 <tr>
                     <th>
                         <a href="{{song.url}}">{{song.name}}</a>
-                        <a><button class="disabled_button">Delete from playlist</button></a>
+<!--                        <a><button class="disabled_button">Delete from playlist</button></a>-->
                     </th>
                 </tr>
                 {% endfor %}
             </table>
-            {% if playlist.can_manage %}
-            <button class="disabled_button">Add music</button>
-            {% endif %}
+
         </div>
     {% endfor %}
 
@@ -78,5 +78,12 @@
             el.style.display = el.style.display != 'none'? 'none' : '';
           }
         }
+<!--        function openPlaylistNav() {-->
+<!--          document.getElementById("playlistSidebar").style.width = "25%";-->
+<!--        }-->
+
+<!--        function closePlaylistNav() {-->
+<!--          document.getElementById("playlistSidebar").style.width = "0";-->
+<!--        }-->
     </script>
 {% endblock %}

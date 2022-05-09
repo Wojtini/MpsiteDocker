@@ -1,0 +1,38 @@
+.sidenav {
+  height: 100%;
+  width: 0%;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  background-color: #2F3136;
+  transition: 0.5s;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sidenav li {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav li a {
+  padding: 4px 4px 4px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  transition: 0.3s;
+  color: #FFFFFF;
+}
+
+.sidenav li:hover {
+  background-color: #42464D;
+}
+
+.sidenav .closebtn {
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+}

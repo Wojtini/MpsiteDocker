@@ -1,35 +1,45 @@
 {% load static %}
-<ul>
-  <li><a href="{% url 'home:index' %}">Home(PERMISSIONs)</a></li>
-<!--  <li><a href="{% url 'home:servers' %}">Servers(OUT)</a></li>-->
-  <li><a href="{% url 'home:personnel' %}">Personnel</a></li>
-  <li><a href="{% url 'movierating:list' %}">Movies Repo</a></li>
-  <li><a href="{% url 'wotapi:list' %}">WN8 Tracker</a></li>
-  <li><a href="{% url 'discordapp:playlist_list' %}">Discord Radio</a></li>
-
+<span style="font-size:30px;cursor:pointer" onclick="openSideNav()">&#9776; MENU</span>
+<span style="font-size:30px;cursor:pointer" onclick="openUserNav()">&#9776; USER</span>
+<div id="sideNav" class="sidenav" onmouseleave="closeSideNav()">
+    <li onclick="closeSideNav()"><a class="closebtn">&times;</a></li>
+    <li><a href="{% url 'home:index' %}">Home</a></li>
+    <li><a href="{% url 'home:servers' %}">Servers</a></li>
+    <li><a href="{% url 'home:personnel' %}">Personnel</a></li>
+    <li><a href="{% url 'movierating:list' %}">Movies Repo</a></li>
+    <li><a href="{% url 'wotapi:list' %}">WN8 Tracker</a></li>
+    <li><a href="{% url 'discordapp:playlist_list' %}">Discord Radio</a></li>
+</div>
+<div id="sideUserNav" class="sidenav" onmouseleave="closeUserNav()">
     {% if user.is_authenticated %}
-        <div class="nav-user-info">
-          <li class="nav-item">
-
-
-            <div class="dropdown">
-              <span><a class="nav-link" href="#">Welcome, {{user.username}}</a></span>
-              <div class="dropdown-content">
-                {% if user.is_superuser %}
-                  <a href="/admin">Admin</a>
-                {% endif %}
-                <a href="/editprofile">Edit profile</a>
-                <a href="/edituser">Edit user</a>
-                <a class="nav-link" href="/logout">Logout</a>
-              </div>
-            </div>
-
-          </li>
-        </div>
+        <li onclick="closeUserNav()"><a class="closebtn">&times;</a></li>
+        <li>Welcome, {{user.username}}</li>
+        {% if user.is_superuser %}
+            <li><a href="/admin">Admin Panel</a></li>
+        {% endif %}
+        <li><a href="/editprofile">Edit profile</a></li>
+        <li><a href="/edituser">Edit user</a></li>
+        <li><a class="nav-link" href="/logout">Logout</a></li>
     {% else %}
         <div class="nav-user-info">
           <li><a href="/login">Login</a></li>
           <li><a href="/register">Register</a></li>
         </div>
     {% endif %}
-</ul>
+</div>
+<script>
+function openSideNav() {
+  document.getElementById("sideNav").style.width = "25%";
+}
+
+function closeSideNav() {
+  document.getElementById("sideNav").style.width = "0";
+}
+function openUserNav() {
+  document.getElementById("sideUserNav").style.width = "25%";
+}
+
+function closeUserNav() {
+  document.getElementById("sideUserNav").style.width = "0";
+}
+</script>
