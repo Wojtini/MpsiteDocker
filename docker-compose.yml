@@ -1,7 +1,5 @@
 version: "3.9"
 
-volumes:
-  static_files:
 services:
   db:
     image: postgres
@@ -17,8 +15,7 @@ services:
     build: .
     volumes:
       - .:/code
-      - static_files:/static_files
-    command: bash -c "cd code && gunicorn -w 4 mpsite.wsgi -b 0.0.0.0:8000"
+    command: bash -c "cd code && python manage.py collectstatic && gunicorn -w 4 mpsite.wsgi -b 0.0.0.0:8000"
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
@@ -29,19 +26,11 @@ services:
     depends_on:
       - db
   nginx:
-    build:
-      context: .
-      dockerfile: NginxDockerfile
-    volumes:
-      - static_files:/static_files
-      - ./certbot/www:/var/www/certbot/:ro
+    image: nginx:1.15-alpine
     ports:
       - "80:80"
       - "443:443"
-    depends_on:
-      - web
-  certbot:
-    image: certbot/certbot:latest
     volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
