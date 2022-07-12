@@ -40,6 +40,7 @@ urlpatterns = [
     path('movierating/', include('movierating.urls')),
     path('wotapi/', include('wotwatcher.urls')),
     path('discord/', include('discordapp.urls')),
+    path('wine/', include('wineapp.urls')),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

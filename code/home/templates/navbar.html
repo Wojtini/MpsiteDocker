@@ -3,27 +3,28 @@
 <span style="font-size:30px;cursor:pointer" onclick="openUserNav()">&#9776; USER</span>
 <div id="sideNav" class="sidenav" onmouseleave="closeSideNav()">
     <li onclick="closeSideNav()"><a class="closebtn">&times;</a></li>
-    <li><a href="{% url 'home:index' %}">Home</a></li>
-    <li><a href="{% url 'home:servers' %}">Servers</a></li>
-    <li><a href="{% url 'home:personnel' %}">Personnel</a></li>
-    <li><a href="{% url 'movierating:list' %}">Movies Repo</a></li>
-    <li><a href="{% url 'wotapi:list' %}">WN8 Tracker</a></li>
-    <li><a href="{% url 'discordapp:playlist_list' %}">Discord Radio</a></li>
+    <li><a href="{% url 'home:index' %}"><nobr>Home</nobr></a></li>
+    <li><a href="{% url 'home:servers' %}"><nobr>Servers</nobr></a></li>
+    <li><a href="{% url 'home:personnel' %}"><nobr>Personnel</nobr></a></li>
+    <li><a href="{% url 'movierating:list' %}"><nobr>Movies Repo</nobr></a></li>
+    <li><a href="{% url 'wotapi:list' %}"><nobr>WN8 Tracker</nobr></a></li>
+    <li><a href="{% url 'discordapp:playlist_list' %}"><nobr>Discord Radio</nobr></a></li>
+    <li><a href="{% url 'wineapp:index' %}"><nobr>Wines</nobr></a></li>
 </div>
 <div id="sideUserNav" class="sidenav" onmouseleave="closeUserNav()">
     {% if user.is_authenticated %}
         <li onclick="closeUserNav()"><a class="closebtn">&times;</a></li>
-        <li>Welcome, {{user.username}}</li>
+        <li><nobr>Welcome, {{user.username}}</nobr></li>
         {% if user.is_superuser %}
-            <li><a href="/admin">Admin Panel</a></li>
+            <li><a href="/admin"><nobr>Admin Panel</nobr></a></li>
         {% endif %}
-        <li><a href="/editprofile">Edit profile</a></li>
-        <li><a href="/edituser">Edit user</a></li>
-        <li><a class="nav-link" href="/logout">Logout</a></li>
+        <li><a href="/editprofile"><nobr>Edit profile</nobr></a></li>
+        <li><a href="/edituser"><nobr>Edit user</nobr></a></li>
+        <li><a class="nav-link" href="/logout"><nobr>Logout</nobr></a></li>
     {% else %}
         <div class="nav-user-info">
-          <li><a href="/login">Login</a></li>
-          <li><a href="/register">Register</a></li>
+          <li><a href="/login"><nobr>Login</nobr></a></li>
+          <li><a href="/register"><nobr>Register</nobr></a></li>
         </div>
     {% endif %}
 </div>
